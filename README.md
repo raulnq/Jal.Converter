@@ -24,24 +24,24 @@ Install the Jal.Factory library, use the ConverterInstaller class included
 
 Create your converter class
 
-    public class CustomerRequestCustomerConverter : AbstractConverter<CustomerRequest, Customer>
-    {
-        public override Customer Convert(CustomerRequest source)
-        {
-            return new Customer()
-                   {
-                       Name = source.Name,
-                       Age = source.Age,
-                       Category = "None"
-                   };
-        }
-    }
+	public class CustomerRequestCustomerConverter : AbstractConverter<CustomerRequest, Customer>
+	{
+	public override Customer Convert(CustomerRequest source)
+	{
+	    return new Customer()
+	           {
+	               Name = source.Name,
+	               Age = source.Age,
+	               Category = "None"
+	           };
+	}
+	}
 	
 Tag the assembly container of the converter classes in order to be read by the library
 
 	[assembly: AssemblyTag("ConverterSource")]
 
-Resolve a instance of the interface IObjectFactory
+Resolve a instance of the interface IModelConverter
 
 	var modelConverter = container.Resolve<IModelConverter>();
 
@@ -52,7 +52,7 @@ Use the Converter class
 		Name = name,
 		Age = age
 	};
-    var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
+    	var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 	
 ## AutoMapper Integration
 
