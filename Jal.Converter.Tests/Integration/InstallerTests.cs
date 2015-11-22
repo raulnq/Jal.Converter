@@ -1,9 +1,12 @@
 ﻿using System;
+using Castle.Windsor;
 using Cignium.Framework.Infrastructure.Converter.Extension;
 using Jal.Converter.Impl;
+using Jal.Converter.Installer;
 using Jal.Converter.Interface;
 using Jal.Converter.Tests.Impl;
 using Jal.Converter.Tests.Model;
+using Jal.Locator.CastleWindsor.Installer;
 using Jal.Locator.Impl;
 using NUnit.Framework;
 using Shouldly;
@@ -11,20 +14,24 @@ using Shouldly;
 namespace Jal.Converter.Tests.Integration
 {
     [TestFixture]
-    public class Tests
+    public class InstallerTests
     {
         private IModelConverter _modelConverter;
 
         [SetUp]
         public void SetUp()
         {
-            var serviceLocator = new ServiceLocator();
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
 
-            serviceLocator.Register(new CustomerRequestCustomerConverter());
+            AssemblyFinder.Impl.AssemblyFinder.Current = new AssemblyFinder.Impl.AssemblyFinder(directory);
 
-            var converterFactory = new ConverterFactory(serviceLocator);
+            var container = new WindsorContainer();
 
-            _modelConverter = new ModelConverter(converterFactory, new NullModelConverterLogger());
+            container.Install(new ServiceLocatorInstaller());
+
+            container.Install(new ConverterInstaller());
+
+            _modelConverter = container.Resolve<IModelConverter>();
         }
 
         [Test]

@@ -7,7 +7,7 @@ using Jal.AssemblyFinder;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Jal.Converter.AutoMapper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Integration between AutoMapper and Jal.Conveter library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Jal.Converter.AutoMapper")]

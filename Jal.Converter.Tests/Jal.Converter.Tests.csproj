@@ -36,8 +36,24 @@
     <Reference Include="AutoMapper.Data">
       <HintPath>..\packages\AutoMapper.Data.1.0.0-beta1\lib\net40\AutoMapper.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.0\lib\net40-client\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jal.AssemblyFinder, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jal.AssemblyFinder.1.0.0.1\lib\net40\Jal.AssemblyFinder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Jal.Locator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Jal.Locator.1.0.0.0\lib\net40\Jal.Locator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jal.Locator.CastleWindsor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jal.Locator.CastleWindsor.1.0.0.0\lib\net40\Jal.Locator.CastleWindsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework">
@@ -66,7 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\AutoMapperTest.cs" />
-    <Compile Include="Integration\CustomerRequestCustomerConverter.cs" />
+    <Compile Include="Impl\CustomerRequestCustomerConverter.cs" />
+    <Compile Include="Integration\InstallerTests.cs" />
     <Compile Include="Integration\Tests.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\CustomerRequest.cs" />
@@ -76,6 +93,10 @@
     <ProjectReference Include="..\Jal.Converter.AutoMapper\Jal.Converter.AutoMapper.csproj">
       <Project>{A458D129-63D7-492B-98E8-48EE34ADB0AB}</Project>
       <Name>Jal.Converter.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jal.Converter.Installer\Jal.Converter.Installer.csproj">
+      <Project>{97056417-CA87-4290-BDB4-7C7DE3B33CBD}</Project>
+      <Name>Jal.Converter.Installer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Jal.Converter\Jal.Converter.csproj">
       <Project>{5994422B-1CA2-49D2-8754-DF8D52627328}</Project>
