@@ -1,0 +1,66 @@
+﻿using System;
+using Cignium.Framework.Infrastructure.Converter.Extension;
+using Jal.Converter.Impl;
+using Jal.Converter.Interface;
+using Jal.Converter.Tests.Model;
+using Jal.Locator.Impl;
+using NUnit.Framework;
+using Shouldly;
+
+namespace Jal.Converter.Tests.Integration
+{
+    [TestFixture]
+    public class Tests
+    {
+        private IModelConverter _modelConverter;
+
+        [SetUp]
+        public void SetUp()
+        {
+            var serviceLocator = new ServiceLocator();
+
+            serviceLocator.Register(new CustomerRequestCustomerConverter());
+
+            var converterFactory = new ConverterFactory(serviceLocator);
+
+            _modelConverter = new ModelConverter(converterFactory, new NullModelConverterLogger());
+        }
+
+        [Test]
+        [TestCase("Name", 19)]
+        [TestCase("A", 10000)]
+        [TestCase("_", 999)]
+        public void Convert_CustomerRequestToCustomer_Successfully(string name, int age)
+        {
+            var customerRequest = new CustomerRequest
+            {
+                Name = name,
+                Age = age
+            };
+            var customer = _modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
+            customer.Name.ShouldBe(customerRequest.Name);
+            customer.Age.ShouldBe(customerRequest.Age);
+            customer.Category.ShouldBe("None");
+        }
+
+        [Test]
+        [TestCase("Name", 19)]
+        [TestCase("A", 10000)]
+        [TestCase("_", 999)]
+        public void ShouldMatch_CustomerRequestToCustomer_Successfully(string name, int age)
+        {
+            var customerRequest = new CustomerRequest
+            {
+                Name = name,
+                Age = age
+            };
+            new CustomerRequestCustomerConverter().ShouldMatch(customerRequest, new Func<Customer, bool> []
+                                                                                {
+                                                                                    x => x.Name == customerRequest.Name,
+                                                                                    x => x.Age == customerRequest.Age,
+                                                                                    x => x.Category == "None"
+                                                                                });
+        }
+    }
+}
+
