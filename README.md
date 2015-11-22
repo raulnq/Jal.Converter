@@ -26,15 +26,15 @@ Create your converter class
 
 	public class CustomerRequestCustomerConverter : AbstractConverter<CustomerRequest, Customer>
 	{
-	public override Customer Convert(CustomerRequest source)
-	{
-	    return new Customer()
-	           {
-	               Name = source.Name,
-	               Age = source.Age,
-	               Category = "None"
-	           };
-	}
+		public override Customer Convert(CustomerRequest source)
+		{
+			return new Customer()
+				   {
+					   Name = source.Name,
+					   Age = source.Age,
+					   Category = "None"
+				   };
+		}
 	}
 	
 Tag the assembly container of the converter classes in order to be read by the library
@@ -52,7 +52,7 @@ Use the Converter class
 		Name = name,
 		Age = age
 	};
-    	var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
+    var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 	
 ## AutoMapper Integration
 
