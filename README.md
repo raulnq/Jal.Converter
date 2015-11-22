@@ -39,7 +39,7 @@ Create your converter class
 	
 Tag the assembly container of the converter classes in order to be read by the library
 
-[assembly: AssemblyTag("ConverterSource")]
+	[assembly: AssemblyTag("ConverterSource")]
 
 Resolve a instance of the interface IObjectFactory
 
