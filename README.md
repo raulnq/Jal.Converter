@@ -53,3 +53,14 @@ Use the Converter class
 		Age = age
 	};
     var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
+	
+## AutoMapper Integration
+
+Note: The Jal.Converter.AutoMapper library is needed.
+
+Setup AutoMapper library instead of create your own converter
+
+	Mapper.Initialize(a =>
+	{
+		a.CreateMap<CustomerRequest, Customer>();
+	});
