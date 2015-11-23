@@ -10,7 +10,7 @@ namespace Jal.Converter.Installer
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var assemblies = AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("ConverterSource");
+            var assemblies = AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter");
 
             if (assemblies != null)
             {
