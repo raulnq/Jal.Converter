@@ -18,7 +18,7 @@ Install the Jal.Locator.CastleWindsor library
 
 	container.Install(new ServiceLocatorInstaller());
 
-Install the Jal.Factory library, use the ConverterInstaller class included
+Install the Jal.Converter library, use the ConverterInstaller class included
 
 	container.Install(new ConverterInstaller());
 
