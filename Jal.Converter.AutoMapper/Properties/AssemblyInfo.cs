@@ -9,7 +9,7 @@ using Jal.AssemblyFinder;
 [assembly: AssemblyTitle("Jal.Converter.AutoMapper")]
 [assembly: AssemblyDescription("Integration between AutoMapper and Jal.Conveter library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Raul Naupari")]
 [assembly: AssemblyProduct("Jal.Converter.AutoMapper")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
