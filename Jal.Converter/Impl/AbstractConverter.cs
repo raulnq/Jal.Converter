@@ -14,5 +14,15 @@ namespace Jal.Converter.Impl
         {
             return Convert(source);
         }
+
+        public virtual TDestination Convert(TSource source, dynamic context)
+        {
+            return Convert(source);
+        }
+
+        public virtual TDestination Convert(TSource source, TDestination destination, dynamic context)
+        {
+            return Convert(source);
+        }
     }
 }

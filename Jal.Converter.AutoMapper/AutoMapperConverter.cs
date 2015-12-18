@@ -71,5 +71,15 @@ namespace Jal.Converter.AutoMapper
             var results = Mapper.Map(source, destination);
             return results;
         }
+
+        public TDestination Convert(TSource source, dynamic context)
+        {
+            return Convert(source);
+        }
+
+        public TDestination Convert(TSource source, TDestination destination, dynamic context)
+        {
+            return Convert(source, destination);
+        }
     }
 }

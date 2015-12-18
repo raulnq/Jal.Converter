@@ -22,11 +22,29 @@ namespace Jal.Converter.Impl
             return result;
         }
 
-        public TDestination Convert<TSource, TDestination>(TSource source,TDestination destination)
+        public TDestination Convert<TSource, TDestination>(TSource source, dynamic context)
+        {
+            _modelConverterLogger.Before<TSource, TDestination>(source);
+            var converter = _converterFactory.Create<TSource, TDestination>();
+            var result = converter.Convert(source, context);
+            _modelConverterLogger.After(source, result);
+            return result;
+        }
+
+        public TDestination Convert<TSource, TDestination>(TSource source, TDestination destination)
         {
             _modelConverterLogger.Before<TSource, TDestination>(source);
             var converter = _converterFactory.Create<TSource, TDestination>();
             var result = converter.Convert(source, destination);
+            _modelConverterLogger.After(source, result);
+            return result;
+        }
+
+        public TDestination Convert<TSource, TDestination>(TSource source, TDestination destination, dynamic context)
+        {
+            _modelConverterLogger.Before<TSource, TDestination>(source);
+            var converter = _converterFactory.Create<TSource, TDestination>();
+            var result = converter.Convert(source, context, context);
             _modelConverterLogger.After(source, result);
             return result;
         }
