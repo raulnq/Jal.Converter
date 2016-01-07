@@ -44,7 +44,7 @@ namespace Jal.Converter.Impl
         {
             _modelConverterLogger.Before<TSource, TDestination>(source);
             var converter = _converterFactory.Create<TSource, TDestination>();
-            var result = converter.Convert(source, context, context);
+            var result = converter.Convert(source, destination, context);
             _modelConverterLogger.After(source, result);
             return result;
         }
