@@ -9,9 +9,9 @@ namespace Jal.Converter.Impl
 
         public static IModelConverter Current;
 
-        public static void SetModelConverterProvider(IModelConverter modelConverter)
+        public static void SetModelConverterProvider(IModelConverter provider)
         {
-            Current = modelConverter;
+            Current = provider;
         }
 
         public static void SetDefaultModelConverterProvider(IServiceLocator serviceLocator)
