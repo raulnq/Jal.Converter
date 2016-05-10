@@ -1,10 +1,25 @@
 ﻿using Jal.Converter.Interface;
+using Jal.Locator.Interface;
 
 namespace Jal.Converter.Impl
 {
     public class ModelConverter : IModelConverter
     {
         private readonly IConverterFactory _converterFactory;
+
+        public static IModelConverter Current;
+
+        public static void SetModelConverterProvider(IModelConverter modelConverter)
+        {
+            Current = modelConverter;
+        }
+
+        public static void SetDefaultModelConverterProvider(IServiceLocator serviceLocator)
+        {
+            var factory = new ConverterFactory(serviceLocator);
+            Current = new ModelConverter(factory, new NullModelConverterLogger());
+        }
+
         private readonly IModelConverterLogger _modelConverterLogger;
 
         public ModelConverter(IConverterFactory converterFactory, IModelConverterLogger modelConverterLogger)
