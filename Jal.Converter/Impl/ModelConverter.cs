@@ -1,4 +1,6 @@
-﻿using Jal.Converter.Interface;
+﻿using System.Runtime.InteropServices;
+using Jal.Converter.Fluent;
+using Jal.Converter.Interface;
 using Jal.Locator.Interface;
 
 namespace Jal.Converter.Impl
@@ -8,6 +10,14 @@ namespace Jal.Converter.Impl
         private readonly IConverterFactory _converterFactory;
 
         public static IModelConverter Current;
+
+        public static ModelConverterSetupDescriptor Setup
+        {
+            get
+            {
+                return new ModelConverterSetupDescriptor();
+            }
+        }
 
         public static void SetModelConverterProvider(IModelConverter provider)
         {
