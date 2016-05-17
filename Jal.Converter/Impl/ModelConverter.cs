@@ -11,7 +11,7 @@ namespace Jal.Converter.Impl
 
         public static IModelConverter Current;
 
-        public static ModelConverterSetupDescriptor Setup
+        public static IModelConverterServiceLocatorSetupDescriptor Setup
         {
             get
             {

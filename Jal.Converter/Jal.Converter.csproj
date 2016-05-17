@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension\ConverterExtension.cs" />
+    <Compile Include="Interface\IModelConverterServiceLocatorSetupDescriptor.cs" />
+    <Compile Include="Interface\IModelConverterSetupDescriptor.cs" />
     <Compile Include="Impl\AbstractConverter.cs" />
     <Compile Include="Impl\ConverterFactory.cs" />
     <Compile Include="Impl\ModelConverter.cs" />

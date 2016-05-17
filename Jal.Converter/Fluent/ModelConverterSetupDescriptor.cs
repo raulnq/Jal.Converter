@@ -1,11 +1,11 @@
-﻿using Jal.Converter.Impl;
+﻿using System;
+using Jal.Converter.Impl;
 using Jal.Converter.Interface;
-using Jal.Locator.Fluent;
 using Jal.Locator.Interface;
 
 namespace Jal.Converter.Fluent
 {
-    public class ModelConverterSetupDescriptor
+    public class ModelConverterSetupDescriptor : IModelConverterSetupDescriptor, IModelConverterServiceLocatorSetupDescriptor
     {
         private IConverterFactory _converterFactory;
 
@@ -13,20 +13,31 @@ namespace Jal.Converter.Fluent
 
         private IModelConverterLogger _modelConverterLogger;
 
+        private IModelConverter _modelConverter;
 
-        public ModelConverterSetupDescriptor UseServiceLocator(IServiceLocator serviceLocator)
+        public IModelConverterSetupDescriptor UseServiceLocator(IServiceLocator serviceLocator)
         {
+            if (serviceLocator == null)
+            {
+                throw new ArgumentNullException("serviceLocator");
+            }
             _serviceLocator = serviceLocator;
             return this;
         }
 
-        public ModelConverterSetupDescriptor UseConverterFactory(IConverterFactory converterFactory)
+        public IModelConverterSetupDescriptor UseModelConverter(IModelConverter modelConverter)
+        {
+            _modelConverter = modelConverter;
+            return this;
+        }
+
+        public IModelConverterSetupDescriptor UseConverterFactory(IConverterFactory converterFactory)
         {
             _converterFactory = converterFactory;
             return this;
         }
 
-        public ModelConverterSetupDescriptor UseModelConverterLogger(IModelConverterLogger modelConverterLogger)
+        public IModelConverterSetupDescriptor UseModelConverterLogger(IModelConverterLogger modelConverterLogger)
         {
             _modelConverterLogger = modelConverterLogger;
             return this;
@@ -34,47 +45,26 @@ namespace Jal.Converter.Fluent
 
         public IModelConverter Create()
         {
+            if (_modelConverter != null)
+            {
+                return _modelConverter;
+            }
+
+            IConverterFactory converterFactory=new ConverterFactory(_serviceLocator);
 
             if (_converterFactory != null)
             {
-                if (_modelConverterLogger != null)
-                {
-                    return new ModelConverter(_converterFactory, _modelConverterLogger);
-                }
-                else
-                {
-                    return new ModelConverter(_converterFactory, new NullModelConverterLogger());
-                }
-                      
+                converterFactory = _converterFactory;
             }
-            else
+
+            IModelConverterLogger modelConverterLogger = new NullModelConverterLogger();
+
+            if (_modelConverterLogger != null)
             {
-                if (_serviceLocator != null)
-                {
-                    var factory = new ConverterFactory(_serviceLocator);
-                    if (_modelConverterLogger != null)
-                    {
-                        return new ModelConverter(factory, _modelConverterLogger);
-                    }
-                    else
-                    {
-                        return new ModelConverter(factory, new NullModelConverterLogger());
-                    }
-                }
-                else
-                {
-                    var servicelocator = new ServiceLocatorSetupDescriptor().Create();
-                    var factory = new ConverterFactory(servicelocator);
-                    if (_modelConverterLogger != null)
-                    {
-                        return new ModelConverter(factory, _modelConverterLogger);
-                    }
-                    else
-                    {
-                        return new ModelConverter(factory, new NullModelConverterLogger());
-                    }
-                }
+                modelConverterLogger = _modelConverterLogger;
             }
+
+            return new ModelConverter(converterFactory, modelConverterLogger);
         }
     }
 }
