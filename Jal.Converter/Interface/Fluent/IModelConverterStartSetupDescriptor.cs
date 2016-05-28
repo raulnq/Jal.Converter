@@ -6,7 +6,7 @@ namespace Jal.Converter.Interface.Fluent
     {
         IModelConverterSetupDescriptor UseServiceLocator(IServiceLocator serviceLocator);
 
-        IModelConverterSetupDescriptor UseConverterFactory(IConverterFactory converterFactory);
+        IModelConverterSetupDescriptor UseFactory(IConverterFactory converterFactory);
 
         IModelConverterEndSetupDescriptor UseModelConverter(IModelConverter modelConverter);
     }

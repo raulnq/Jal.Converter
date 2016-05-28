@@ -14,7 +14,7 @@ namespace Jal.Converter.Fluent
 
         private IModelConverter _modelConverter;
 
-        public IModelConverterSetupDescriptor UseConverterFactory(IConverterFactory converterFactory)
+        public IModelConverterSetupDescriptor UseFactory(IConverterFactory converterFactory)
         {
             if (converterFactory == null)
             {
@@ -40,7 +40,7 @@ namespace Jal.Converter.Fluent
             return this;
         }
 
-        public IModelConverterSetupDescriptor UseModelConverterInterceptor(IModelConverterInterceptor modelConverterInterceptor)
+        public IModelConverterSetupDescriptor UseInterceptor(IModelConverterInterceptor modelConverterInterceptor)
         {
             _modelConverterInterceptor = modelConverterInterceptor;
             return this;

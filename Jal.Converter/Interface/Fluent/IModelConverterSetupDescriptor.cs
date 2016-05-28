@@ -2,6 +2,6 @@
 {
     public interface IModelConverterSetupDescriptor : IModelConverterEndSetupDescriptor
     {
-        IModelConverterSetupDescriptor UseModelConverterInterceptor(IModelConverterInterceptor modelConverterInterceptor);
+        IModelConverterSetupDescriptor UseInterceptor(IModelConverterInterceptor modelConverterInterceptor);
     }
 }
