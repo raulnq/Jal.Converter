@@ -1,6 +1,6 @@
 ﻿using System;
 using Castle.Windsor;
-using Cignium.Framework.Infrastructure.Converter.Extension;
+using Jal.Converter.Extension;
 using Jal.Converter.Impl;
 using Jal.Converter.Installer;
 using Jal.Converter.Interface;

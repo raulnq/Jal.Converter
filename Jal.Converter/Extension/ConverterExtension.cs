@@ -3,7 +3,7 @@ using System.Linq;
 using Jal.Converter.Interface;
 using Jal.Converter.Model;
 
-namespace Cignium.Framework.Infrastructure.Converter.Extension
+namespace Jal.Converter.Extension
 {
     public static class ConverterExtension
     {

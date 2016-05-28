@@ -9,5 +9,9 @@
         TDestination Convert<TSource, TDestination>(TSource source, TDestination destination);
 
         TDestination Convert<TSource, TDestination>(TSource source, TDestination destination, dynamic context);
+
+        IConverterFactory Factory { get; }
+
+        IModelConverterInterceptor Interceptor { get; }
     }
 }

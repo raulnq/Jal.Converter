@@ -23,7 +23,7 @@ namespace Jal.Converter.Installer
             }
             
             container.Register(
-                Component.For<IModelConverterLogger>().ImplementedBy<NullModelConverterLogger>(),
+                Component.For<IModelConverterInterceptor>().ImplementedBy<NullModelConverterInterceptor>(),
                 Component.For<IConverterFactory>().ImplementedBy<ConverterFactory>().LifestyleSingleton(),
                 Component.For<IModelConverter>().ImplementedBy<ModelConverter>().LifestyleSingleton()
                 );

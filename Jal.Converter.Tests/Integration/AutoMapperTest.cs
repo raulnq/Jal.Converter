@@ -27,7 +27,7 @@ namespace Jal.Converter.Tests.Integration
                 a.CreateMap<IDataReader, Customer>();
             });
 
-            var defaultModelConverterLogger = new NullModelConverterLogger();
+            var defaultModelConverterLogger = new NullModelConverterInterceptor();
 
             var serviceLocator = new ServiceLocator();
 

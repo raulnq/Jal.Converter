@@ -1,5 +1,5 @@
 ﻿using System;
-using Cignium.Framework.Infrastructure.Converter.Extension;
+using Jal.Converter.Extension;
 using Jal.Converter.Impl;
 using Jal.Converter.Interface;
 using Jal.Converter.Tests.Impl;
@@ -24,7 +24,7 @@ namespace Jal.Converter.Tests.Integration
 
             var converterFactory = new ConverterFactory(serviceLocator);
 
-            _modelConverter = new ModelConverter(converterFactory, new NullModelConverterLogger());
+            _modelConverter = new ModelConverter(converterFactory, new NullModelConverterInterceptor());
         }
 
         [Test]

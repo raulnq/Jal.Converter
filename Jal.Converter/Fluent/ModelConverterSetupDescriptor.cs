@@ -1,19 +1,28 @@
 ﻿using System;
 using Jal.Converter.Impl;
 using Jal.Converter.Interface;
+using Jal.Converter.Interface.Fluent;
 using Jal.Locator.Interface;
 
 namespace Jal.Converter.Fluent
 {
-    public class ModelConverterSetupDescriptor : IModelConverterSetupDescriptor, IModelConverterServiceLocatorSetupDescriptor
+    public class ModelConverterSetupDescriptor : IModelConverterSetupDescriptor, IModelConverterStartSetupDescriptor
     {
         private IConverterFactory _converterFactory;
 
-        private IServiceLocator _serviceLocator;
-
-        private IModelConverterLogger _modelConverterLogger;
+        private IModelConverterInterceptor _modelConverterInterceptor;
 
         private IModelConverter _modelConverter;
+
+        public IModelConverterSetupDescriptor UseConverterFactory(IConverterFactory converterFactory)
+        {
+            if (converterFactory == null)
+            {
+                throw new ArgumentNullException("converterFactory");
+            }
+            _converterFactory = converterFactory;
+            return this;
+        }
 
         public IModelConverterSetupDescriptor UseServiceLocator(IServiceLocator serviceLocator)
         {
@@ -21,25 +30,19 @@ namespace Jal.Converter.Fluent
             {
                 throw new ArgumentNullException("serviceLocator");
             }
-            _serviceLocator = serviceLocator;
+            _converterFactory = new ConverterFactory(serviceLocator);
             return this;
         }
 
-        public IModelConverterSetupDescriptor UseModelConverter(IModelConverter modelConverter)
+        public IModelConverterEndSetupDescriptor UseModelConverter(IModelConverter modelConverter)
         {
             _modelConverter = modelConverter;
             return this;
         }
 
-        public IModelConverterSetupDescriptor UseConverterFactory(IConverterFactory converterFactory)
+        public IModelConverterSetupDescriptor UseModelConverterInterceptor(IModelConverterInterceptor modelConverterInterceptor)
         {
-            _converterFactory = converterFactory;
-            return this;
-        }
-
-        public IModelConverterSetupDescriptor UseModelConverterLogger(IModelConverterLogger modelConverterLogger)
-        {
-            _modelConverterLogger = modelConverterLogger;
+            _modelConverterInterceptor = modelConverterInterceptor;
             return this;
         }
 
@@ -50,21 +53,14 @@ namespace Jal.Converter.Fluent
                 return _modelConverter;
             }
 
-            IConverterFactory converterFactory=new ConverterFactory(_serviceLocator);
+            IModelConverterInterceptor modelConverterInterceptor = new NullModelConverterInterceptor();
 
-            if (_converterFactory != null)
+            if (_modelConverterInterceptor != null)
             {
-                converterFactory = _converterFactory;
+                modelConverterInterceptor = _modelConverterInterceptor;
             }
 
-            IModelConverterLogger modelConverterLogger = new NullModelConverterLogger();
-
-            if (_modelConverterLogger != null)
-            {
-                modelConverterLogger = _modelConverterLogger;
-            }
-
-            return new ModelConverter(converterFactory, modelConverterLogger);
+            return new ModelConverter(_converterFactory, modelConverterInterceptor);
         }
     }
 }
