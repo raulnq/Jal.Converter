@@ -12,6 +12,6 @@
 
         IConverterFactory Factory { get; }
 
-        IModelConverterInterceptor Interceptor { get; }
+        IModelConverterInterceptor Interceptor { get; set; }
     }
 }

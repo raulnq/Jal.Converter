@@ -18,13 +18,11 @@ namespace Jal.Converter.Tests.Integration
         [SetUp]
         public void SetUp()
         {
-            var serviceLocator = new ServiceLocator();
+            var serviceLocator = ServiceLocator.Builder.Create as ServiceLocator;
 
-            serviceLocator.Register(new CustomerRequestCustomerConverter());
+            serviceLocator.Register(typeof(IConverter<CustomerRequest, Customer>), new CustomerRequestCustomerConverter());
 
-            var converterFactory = new ConverterFactory(serviceLocator);
-
-            _modelConverter = new ModelConverter(converterFactory, new NullModelConverterInterceptor());
+            _modelConverter = ModelConverter.Builder.UseServiceLocator(serviceLocator).Create;
         }
 
         [Test]

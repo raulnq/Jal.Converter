@@ -44,17 +44,15 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Jal.AssemblyFinder, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jal.AssemblyFinder.1.0.0.1\lib\net40\Jal.AssemblyFinder.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Jal.AssemblyFinder, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Jal.AssemblyFinder.1.1.0.0\lib\net40\Jal.AssemblyFinder.dll</HintPath>
     </Reference>
-    <Reference Include="Jal.Locator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jal.Locator.1.0.0.0\lib\net40\Jal.Locator.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Jal.Locator">
+      <HintPath>..\packages\Jal.Locator.1.0.5.0\lib\net40\Jal.Locator.dll</HintPath>
     </Reference>
-    <Reference Include="Jal.Locator.CastleWindsor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jal.Locator.CastleWindsor.1.0.0.0\lib\net40\Jal.Locator.CastleWindsor.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Jal.Locator.CastleWindsor">
+      <HintPath>..\packages\Jal.Locator.CastleWindsor.1.0.3.0\lib\net40\Jal.Locator.CastleWindsor.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>

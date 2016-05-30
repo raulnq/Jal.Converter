@@ -13,18 +13,19 @@ namespace Jal.Converter.Impl
 
         public static IModelConverter Current;
 
-        public static IModelConverterStartSetupDescriptor Setup
+        public static IModelConverterStartFluentBuilder Builder
         {
             get
             {
-                return new ModelConverterSetupDescriptor();
+                return new ModelConverterFluentBuilder();
             }
         }
 
-        public ModelConverter(IConverterFactory converterFactory, IModelConverterInterceptor modelConverterInterceptor)
+        public ModelConverter(IConverterFactory converterFactory)
         {
             Factory = converterFactory;
-            Interceptor = modelConverterInterceptor;
+
+            Interceptor =AbstractConverterInterceptor.Instance;
         }
 
         TDestination Try<TSource, TDestination>(TSource source, TDestination destination, Func<IConverter<TSource, TDestination>, TDestination> convertion)

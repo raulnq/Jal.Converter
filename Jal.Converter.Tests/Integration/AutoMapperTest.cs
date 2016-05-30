@@ -27,23 +27,19 @@ namespace Jal.Converter.Tests.Integration
                 a.CreateMap<IDataReader, Customer>();
             });
 
-            var defaultModelConverterLogger = new NullModelConverterInterceptor();
+            var servicelocator = ServiceLocator.Builder.Create as ServiceLocator;
 
-            var serviceLocator = new ServiceLocator();
+            servicelocator.Register(typeof(IConverter<CustomerRequest, Customer>), new AutoMapperConverter<CustomerRequest, Customer>());
 
-            serviceLocator.Register(new AutoMapperConverter<CustomerRequest, Customer>());
+            servicelocator.Register(typeof(IConverter<IDataReader, Customer>), new AutoMapperConverter<IDataReader, Customer>());
 
-            serviceLocator.Register(new AutoMapperConverter<IDataReader, Customer>());
+            servicelocator.Register(typeof(IConverter<IDataReader, IList<Customer>>), new AutoMapperConverter<IDataReader, IList<Customer>>());
 
-            serviceLocator.Register(new AutoMapperConverter<IDataReader, IList<Customer>>());
+            servicelocator.Register(typeof(IConverter<IDataReader, List<Customer>>), new AutoMapperConverter<IDataReader, List<Customer>>());
 
-            serviceLocator.Register(new AutoMapperConverter<IDataReader, List<Customer>>());
+            servicelocator.Register(typeof(IConverter<IDataReader, IEnumerable<Customer>>), new AutoMapperConverter<IDataReader, IEnumerable<Customer>>());
 
-            serviceLocator.Register(new AutoMapperConverter<IDataReader, IEnumerable<Customer>>());
-
-            var converterFactory = new ConverterFactory(serviceLocator);
-
-            _modelConverter = new ModelConverter(converterFactory, defaultModelConverterLogger);
+            _modelConverter = ModelConverter.Builder.UseServiceLocator(servicelocator).Create;
         }
 
         [Test]
