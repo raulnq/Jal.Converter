@@ -32,7 +32,7 @@ Register your converter
 
 Create a instance of the IModelConverter interface
 
-   modelConverter = ModelConverter.Builder.UseServiceLocator(serviceLocator).Create;
+    modelConverter = ModelConverter.Builder.UseServiceLocator(serviceLocator).Create;
     
 Use the IModelConverter interface
 
