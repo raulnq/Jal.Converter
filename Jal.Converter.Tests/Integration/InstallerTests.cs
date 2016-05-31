@@ -23,13 +23,13 @@ namespace Jal.Converter.Tests.Integration
         {
             var directory = AppDomain.CurrentDomain.BaseDirectory;
 
-            AssemblyFinder.Impl.AssemblyFinder.Current = new AssemblyFinder.Impl.AssemblyFinder(directory);
+            AssemblyFinder.Impl.AssemblyFinder.Current = AssemblyFinder.Impl.AssemblyFinder.Builder.UsePath(directory).Create;
 
             var container = new WindsorContainer();
 
             container.Install(new ServiceLocatorInstaller());
 
-            container.Install(new ConverterInstaller());
+            container.Install(new ConverterInstaller(() => AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter")));
 
             _modelConverter = container.Resolve<IModelConverter>();
         }
