@@ -29,7 +29,7 @@ namespace Jal.Converter.Tests.Integration
 
             container.Install(new ServiceLocatorInstaller());
 
-            container.Install(new ConverterInstaller(() => AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter")));
+            container.Install(new ConverterInstaller(AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter")));
 
             _modelConverter = container.Resolve<IModelConverter>();
         }

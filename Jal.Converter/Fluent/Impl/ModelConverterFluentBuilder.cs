@@ -1,10 +1,10 @@
 ﻿using System;
+using Jal.Converter.Fluent.Interface;
 using Jal.Converter.Impl;
 using Jal.Converter.Interface;
-using Jal.Converter.Interface.Fluent;
 using Jal.Locator.Interface;
 
-namespace Jal.Converter.Fluent
+namespace Jal.Converter.Fluent.Impl
 {
     public class ModelConverterFluentBuilder : IModelConverterFluentBuilder, IModelConverterStartFluentBuilder
     {
@@ -24,7 +24,7 @@ namespace Jal.Converter.Fluent
             return this;
         }
 
-        public IModelConverterFluentBuilder UseServiceLocator(IServiceLocator serviceLocator)
+        public IModelConverterFluentBuilder UseFactory(IServiceLocator serviceLocator)
         {
             if (serviceLocator == null)
             {
@@ -46,6 +46,10 @@ namespace Jal.Converter.Fluent
 
         public IModelConverterFluentBuilder UseInterceptor(IModelConverterInterceptor modelConverterInterceptor)
         {
+            if (modelConverterInterceptor == null)
+            {
+                throw new ArgumentNullException("modelConverterInterceptor");
+            }
             _modelConverterInterceptor = modelConverterInterceptor;
             return this;
         }

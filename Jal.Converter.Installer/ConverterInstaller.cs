@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
@@ -10,16 +9,16 @@ namespace Jal.Converter.Installer
 {
     public class ConverterInstaller : IWindsorInstaller
     {
-        private readonly Func<Assembly[]> _converterProvider;
+        private readonly Assembly[] _converterSourceAssemblies;
 
-        public ConverterInstaller(Func<Assembly[]> converterProvider)
+        public ConverterInstaller(Assembly[] converterSourceAssemblies)
         {
-            _converterProvider = converterProvider;
+            _converterSourceAssemblies = converterSourceAssemblies;
         }
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var assemblies = _converterProvider();
+            var assemblies = _converterSourceAssemblies;
 
             if (assemblies != null)
             {

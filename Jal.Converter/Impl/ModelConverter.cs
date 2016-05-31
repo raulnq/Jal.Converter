@@ -1,7 +1,8 @@
 ﻿using System;
 using Jal.Converter.Fluent;
+using Jal.Converter.Fluent.Impl;
+using Jal.Converter.Fluent.Interface;
 using Jal.Converter.Interface;
-using Jal.Converter.Interface.Fluent;
 
 namespace Jal.Converter.Impl
 {

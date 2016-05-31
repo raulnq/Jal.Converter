@@ -22,7 +22,7 @@ namespace Jal.Converter.Tests.Integration
 
             serviceLocator.Register(typeof(IConverter<CustomerRequest, Customer>), new CustomerRequestCustomerConverter());
 
-            _modelConverter = ModelConverter.Builder.UseServiceLocator(serviceLocator).Create;
+            _modelConverter = ModelConverter.Builder.UseFactory(serviceLocator).Create;
         }
 
         [Test]

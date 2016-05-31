@@ -39,7 +39,7 @@ namespace Jal.Converter.Tests.Integration
 
             servicelocator.Register(typeof(IConverter<IDataReader, IEnumerable<Customer>>), new AutoMapperConverter<IDataReader, IEnumerable<Customer>>());
 
-            _modelConverter = ModelConverter.Builder.UseServiceLocator(servicelocator).Create;
+            _modelConverter = ModelConverter.Builder.UseFactory(servicelocator).Create;
         }
 
         [Test]
