@@ -6,6 +6,7 @@ using Jal.Converter.Installer;
 using Jal.Converter.Interface;
 using Jal.Converter.Tests.Impl;
 using Jal.Converter.Tests.Model;
+using Jal.Finder.Impl;
 using Jal.Locator.CastleWindsor.Installer;
 using Jal.Locator.Impl;
 using NUnit.Framework;
@@ -23,13 +24,15 @@ namespace Jal.Converter.Tests.Integration
         {
             var directory = AppDomain.CurrentDomain.BaseDirectory;
 
-            AssemblyFinder.Impl.AssemblyFinder.Current = AssemblyFinder.Impl.AssemblyFinder.Builder.UsePath(directory).Create;
+            var finder = AssemblyFinder.Builder.UsePath(directory).Create;
 
             var container = new WindsorContainer();
 
             container.Install(new ServiceLocatorInstaller());
 
-            container.Install(new ConverterInstaller(AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Converter")));
+            var c = finder.GetAssemblies(x => x.FullName.Contains("Jal.Converter.Tests"));
+
+            container.Install(new ConverterInstaller(c));
 
             _modelConverter = container.Resolve<IModelConverter>();
         }
