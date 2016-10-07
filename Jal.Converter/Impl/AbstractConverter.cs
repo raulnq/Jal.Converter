@@ -5,10 +5,7 @@ namespace Jal.Converter.Impl
 {
     public abstract class AbstractConverter<TSource, TDestination> : IConverter<TSource, TDestination>
     {
-        public virtual TDestination Convert(TSource source)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract TDestination Convert(TSource source);
 
         public virtual TDestination Convert(TSource source, TDestination destination)
         {

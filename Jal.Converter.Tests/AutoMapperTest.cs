@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using AutoMapper;
 using AutoMapper.Data;
 using AutoMapper.Mappers;
@@ -9,8 +10,9 @@ using Jal.Converter.Interface;
 using Jal.Converter.Tests.Model;
 using Jal.Locator.Impl;
 using NUnit.Framework;
+using Shouldly;
 
-namespace Jal.Converter.Tests.Integration
+namespace Jal.Converter.Tests
 {
     [TestFixture]
     public class AutoMapperTest
@@ -39,11 +41,11 @@ namespace Jal.Converter.Tests.Integration
 
             servicelocator.Register(typeof(IConverter<IDataReader, IEnumerable<Customer>>), new AutoMapperConverter<IDataReader, IEnumerable<Customer>>());
 
-            _modelConverter = ModelConverter.Builder.UseFactory(servicelocator).Create;
+            _modelConverter = ModelConverter.Builder.UseLocator(servicelocator).Create;
         }
 
         [Test]
-        public void TestSuccessConvert()
+        public void Convert_With_ShouldBe()
         {
             var request = new CustomerRequest
                           {
@@ -51,12 +53,15 @@ namespace Jal.Converter.Tests.Integration
                               Name = "Name"
                           };
             var customer = _modelConverter.Convert<CustomerRequest, Customer>(request);
-            Assert.AreEqual(request.Age,customer.Age);
-            Assert.AreEqual(request.Name, customer.Name);
+
+            customer.Age.ShouldBe(request.Age);
+
+            customer.Name.ShouldBe(request.Name);
+            
         }
 
         [Test]
-        public void TestSuccessConvertWithPreviousObject()
+        public void Convert_WithDestination_ShouldBe()
         {
             var request = new CustomerRequest
             {
@@ -68,88 +73,185 @@ namespace Jal.Converter.Tests.Integration
                                Category = "Category"
                            };
             var sameCustomer = _modelConverter.Convert(request, customer);
-            Assert.AreEqual(request.Age, sameCustomer.Age);
-            Assert.AreEqual(request.Name, sameCustomer.Name);
-            Assert.AreEqual("Category", sameCustomer.Category);
+
+            sameCustomer.Age.ShouldBe(request.Age);
+
+            sameCustomer.Name.ShouldBe(request.Name);
+
+            sameCustomer.Category.ShouldBe("Category");
+            
         }
 
         [Test]
-        public void TestSuccessDataTableToObjectConverter()
+        public void Convert_WithDestinationAndDynamic_ShouldBe()
+        {
+            var request = new CustomerRequest
+            {
+                Age = 18,
+                Name = "Name"
+            };
+            var customer = new Customer
+            {
+                Category = "Category"
+            };
+            var sameCustomer = _modelConverter.Convert(request, customer, new {});
+
+            sameCustomer.Age.ShouldBe(request.Age);
+
+            sameCustomer.Name.ShouldBe(request.Name);
+
+            sameCustomer.Category.ShouldBe("Category");
+
+        }
+
+        [Test]
+        public void Convert_WithDynamic_ShouldBe()
+        {
+            var request = new CustomerRequest
+            {
+                Age = 18,
+                Name = "Name"
+            };
+
+            var customer = _modelConverter.Convert<CustomerRequest, Customer>(request, new { });
+
+            customer.Age.ShouldBe(request.Age);
+
+            customer.Name.ShouldBe(request.Name);
+
+        }
+
+        [Test]
+        public void Convert_WithDataTableToOneObject_ShouldBe()
         {
 
 
             var dt = new DataTable();
+
             dt.Clear();
+
             dt.Columns.Add(new DataColumn("Age", typeof(int)));
+
             dt.Columns.Add("Name");
+
             dt.Columns.Add("Category");
+
             var row = dt.NewRow();
+
             row["Name"] = "Name";
+
             row["Category"] = "Category";
+
             row["Age"] = 15;
+
             dt.Rows.Add(row);
 
             var customer = _modelConverter.Convert<IDataReader, Customer>(dt.CreateDataReader());
-            Assert.AreEqual(15, customer.Age);
-            Assert.AreEqual("Name", customer.Name);
-            Assert.AreEqual("Category", customer.Category);
+
+            customer.Age.ShouldBe(15);
+
+            customer.Name.ShouldBe("Name");
+
+            customer.Category.ShouldBe("Category");
         }
 
         [Test]
-        public void TestSuccessDataTableToIListConverter()
+        public void Convert_WithDataTableToIList_ShouldBe()
         {
             var dt = new DataTable();
+
             dt.Clear();
+
             dt.Columns.Add(new DataColumn("Age", typeof(int)));
+
             dt.Columns.Add("Name");
+
             dt.Columns.Add("Category");
+
             var row = dt.NewRow();
+
             row["Name"] = "Name";
+
             row["Category"] = "Category";
+
             row["Age"] = 15;
+
             dt.Rows.Add(row);
 
             var customers = _modelConverter.Convert<IDataReader, IList<Customer>>(dt.CreateDataReader());
-            Assert.AreEqual(15, customers[0].Age);
-            Assert.AreEqual("Name", customers[0].Name);
-            Assert.AreEqual("Category", customers[0].Category);
+
+            customers[0].Age.ShouldBe(15);
+
+            customers[0].Name.ShouldBe("Name");
+
+            customers[0].Category.ShouldBe("Category");
+            
         }
 
         [Test]
-        public void TestSuccessDataTableToListConverter()
+        public void Convert_WithDataTableToList_ShouldBe()
         {
             var dt = new DataTable();
+
             dt.Clear();
+
             dt.Columns.Add(new DataColumn("Age", typeof(int)));
+
             dt.Columns.Add("Name");
+
             dt.Columns.Add("Category");
+
             var row = dt.NewRow();
+
             row["Name"] = "Name";
+
             row["Category"] = "Category";
+
             row["Age"] = 15;
+
             dt.Rows.Add(row);
 
             var customers = _modelConverter.Convert<IDataReader, List<Customer>>(dt.CreateDataReader());
-            Assert.AreEqual(15, customers[0].Age);
-            Assert.AreEqual("Name", customers[0].Name);
-            Assert.AreEqual("Category", customers[0].Category);
+
+            customers[0].Age.ShouldBe(15);
+
+            customers[0].Name.ShouldBe("Name");
+
+            customers[0].Category.ShouldBe("Category");
         }
 
         [Test]
-        public void TestSuccessDataTableToEnumerableConverter()
+        public void Convert_WithDataTableToEnumarate_ShouldBe()
         {
             var dt = new DataTable();
+
             dt.Clear();
+
             dt.Columns.Add(new DataColumn("Age", typeof(int)));
+
             dt.Columns.Add("Name");
+
             dt.Columns.Add("Category");
+
             var row = dt.NewRow();
+
             row["Name"] = "Name";
+
             row["Category"] = "Category";
+
             row["Age"] = 15;
+
             dt.Rows.Add(row);
 
             var customers = _modelConverter.Convert<IDataReader, IEnumerable<Customer>>(dt.CreateDataReader());
+
+            var customer = customers.FirstOrDefault();
+
+            customer.Age.ShouldBe(15);
+
+            customer.Name.ShouldBe("Name");
+
+            customer.Category.ShouldBe("Category");
         }
     }
 }

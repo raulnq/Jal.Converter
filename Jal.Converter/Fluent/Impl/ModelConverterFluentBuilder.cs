@@ -8,49 +8,30 @@ namespace Jal.Converter.Fluent.Impl
 {
     public class ModelConverterFluentBuilder : IModelConverterFluentBuilder, IModelConverterStartFluentBuilder
     {
-        private IConverterFactory _converterFactory;
+        public IConverterFactory ConverterFactory;
 
-        private IModelConverterInterceptor _modelConverterInterceptor;
+        public IModelConverterInterceptor ModelConverterInterceptor;
 
-        private IModelConverter _modelConverter;
-
-        public IModelConverterFluentBuilder UseFactory(IConverterFactory converterFactory)
-        {
-            if (converterFactory == null)
-            {
-                throw new ArgumentNullException("converterFactory");
-            }
-            _converterFactory = converterFactory;
-            return this;
-        }
-
-        public IModelConverterFluentBuilder UseFactory(IServiceLocator serviceLocator)
+        public IModelConverterFluentBuilder UseLocator(IServiceLocator serviceLocator)
         {
             if (serviceLocator == null)
             {
-                throw new ArgumentNullException("serviceLocator");
+                throw new ArgumentNullException(nameof(serviceLocator));
             }
-            _converterFactory = new ConverterFactory(serviceLocator);
+
+            ConverterFactory = new ConverterFactory(serviceLocator);
+
             return this;
         }
 
-        public IModelConverterEndFluentBuilder UseModelConverter(IModelConverter modelConverter)
-        {
-            if (modelConverter == null)
-            {
-                throw new ArgumentNullException("modelConverter");
-            }
-            _modelConverter = modelConverter;
-            return this;
-        }
-
-        public IModelConverterFluentBuilder UseInterceptor(IModelConverterInterceptor modelConverterInterceptor)
+        public IModelConverterEndFluentBuilder UseInterceptor(IModelConverterInterceptor modelConverterInterceptor)
         {
             if (modelConverterInterceptor == null)
             {
-                throw new ArgumentNullException("modelConverterInterceptor");
+                throw new ArgumentNullException(nameof(modelConverterInterceptor));
             }
-            _modelConverterInterceptor = modelConverterInterceptor;
+            ModelConverterInterceptor = modelConverterInterceptor;
+
             return this;
         }
 
@@ -58,16 +39,11 @@ namespace Jal.Converter.Fluent.Impl
         {
             get
             {
-                if (_modelConverter != null)
-                {
-                    return _modelConverter;
-                }
+                var modelconverter = new ModelConverter(ConverterFactory);
 
-                var modelconverter = new ModelConverter(_converterFactory);
-
-                if (_modelConverterInterceptor != null)
+                if (ModelConverterInterceptor != null)
                 {
-                    modelconverter.Interceptor = _modelConverterInterceptor;
+                    modelconverter.Interceptor = ModelConverterInterceptor;
                 }
 
                 return modelconverter;

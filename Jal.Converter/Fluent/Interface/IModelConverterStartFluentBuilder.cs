@@ -5,10 +5,6 @@ namespace Jal.Converter.Fluent.Interface
 {
     public interface IModelConverterStartFluentBuilder
     {
-        IModelConverterFluentBuilder UseFactory(IServiceLocator serviceLocator);
-
-        IModelConverterFluentBuilder UseFactory(IConverterFactory converterFactory);
-
-        IModelConverterEndFluentBuilder UseModelConverter(IModelConverter modelConverter);
+        IModelConverterFluentBuilder UseLocator(IServiceLocator serviceLocator);
     }
 }

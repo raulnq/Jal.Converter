@@ -1,5 +1,4 @@
 ﻿using System;
-using Jal.Converter.Fluent;
 using Jal.Converter.Fluent.Impl;
 using Jal.Converter.Fluent.Interface;
 using Jal.Converter.Interface;
@@ -14,19 +13,13 @@ namespace Jal.Converter.Impl
 
         public static IModelConverter Current;
 
-        public static IModelConverterStartFluentBuilder Builder
-        {
-            get
-            {
-                return new ModelConverterFluentBuilder();
-            }
-        }
+        public static IModelConverterStartFluentBuilder Builder => new ModelConverterFluentBuilder();
 
         public ModelConverter(IConverterFactory converterFactory)
         {
             Factory = converterFactory;
 
-            Interceptor =AbstractConverterInterceptor.Instance;
+            Interceptor = AbstractConverterInterceptor.Instance;
         }
 
         TDestination Try<TSource, TDestination>(TSource source, TDestination destination, Func<IConverter<TSource, TDestination>, TDestination> convertion)
@@ -35,13 +28,17 @@ namespace Jal.Converter.Impl
             try
             {
                 var converter = Factory.Create<TSource, TDestination>();
+
                 var result = convertion(converter);
+
                 Interceptor.OnSuccess(source, result);
+
                 return result;
             }
             catch (Exception ex)
             {
                 Interceptor.OnError(source, destination, ex);
+
                 throw;
             }
             finally
