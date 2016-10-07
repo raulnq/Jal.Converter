@@ -1,5 +1,4 @@
-﻿using System;
-using Jal.Converter.Interface;
+﻿using Jal.Converter.Interface;
 
 namespace Jal.Converter.Impl
 {

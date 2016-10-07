@@ -1,5 +1,4 @@
-﻿using Jal.Converter.Interface;
-using Jal.Locator.Interface;
+﻿using Jal.Locator.Interface;
 
 namespace Jal.Converter.Fluent.Interface
 {

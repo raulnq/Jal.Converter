@@ -1,5 +1,4 @@
 ﻿using System;
-using Jal.Converter.Impl;
 using Jal.Converter.Interface;
 using Jal.Converter.LightInject.Installer;
 using Jal.Converter.Tests.Model;
