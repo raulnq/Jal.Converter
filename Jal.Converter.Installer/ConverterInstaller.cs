@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
@@ -18,14 +19,10 @@ namespace Jal.Converter.Installer
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var assemblies = _converterSourceAssemblies;
-
-            if (assemblies != null)
+            if (_converterSourceAssemblies != null)
             {
-                foreach (var assembly in assemblies)
+                foreach (var assemblyDescriptor in _converterSourceAssemblies.Select(Classes.FromAssembly))
                 {
-                    var assemblyDescriptor = Classes.FromAssembly(assembly);
-                    //registering all the converters inside the assembly marked with the attribute
                     container.Register(assemblyDescriptor.BasedOn(typeof(IConverter<,>)).WithServiceAllInterfaces());
                 }
             }

@@ -15,7 +15,7 @@ namespace Jal.Converter.Tests
         [Test]
         public void UseLocator_WithNotNull_ShouldNotBeNull()
         {
-            var sut = new ModelConverterFluentBuilder();
+            var sut = new ModelConverterBuilder();
 
             var locator = new Mock<IServiceLocator>();
 
@@ -27,13 +27,13 @@ namespace Jal.Converter.Tests
 
             chain.ShouldNotBeNull();
 
-            chain.ShouldBeAssignableTo<IModelConverterFluentBuilder>();
+            chain.ShouldBeAssignableTo<IModelConverterInterceptorBuilder>();
         }
 
         [Test]
         public void UseLocator_WithNull_ShouldThrowException()
         {
-            var sut = new ModelConverterFluentBuilder();
+            var sut = new ModelConverterBuilder();
 
             Should.Throw<ArgumentNullException>(() => { var chain = sut.UseLocator(null); });
         }
@@ -41,7 +41,7 @@ namespace Jal.Converter.Tests
         [Test]
         public void UseInterceptor_WithNotNull_ShouldNotBeNull()
         {
-            var sut = new ModelConverterFluentBuilder();
+            var sut = new ModelConverterBuilder();
 
             var interceptor = new Mock<IModelConverterInterceptor>();
 
@@ -51,13 +51,13 @@ namespace Jal.Converter.Tests
 
             chain.ShouldNotBeNull();
 
-            chain.ShouldBeAssignableTo<IModelConverterEndFluentBuilder>();
+            chain.ShouldBeAssignableTo<IModelConverterCreateBuilder>();
         }
 
         [Test]
         public void UseInterceptor_WithNull_ShouldThrowException()
         {
-            var sut = new ModelConverterFluentBuilder();
+            var sut = new ModelConverterBuilder();
 
             Should.Throw<ArgumentNullException>(() => { var chain = sut.UseInterceptor(null); });
         }
@@ -65,7 +65,7 @@ namespace Jal.Converter.Tests
         [Test]
         public void Create_WithLocator_ShouldNotBeNull()
         {
-            var sut = new ModelConverterFluentBuilder();
+            var sut = new ModelConverterBuilder();
 
             var locator = new Mock<IServiceLocator>();
 
@@ -79,7 +79,7 @@ namespace Jal.Converter.Tests
         [Test]
         public void Create_WithLocatorAndInterceptor_ShouldNotBeNull()
         {
-            var sut = new ModelConverterFluentBuilder();
+            var sut = new ModelConverterBuilder();
 
             var locator = new Mock<IServiceLocator>();
 

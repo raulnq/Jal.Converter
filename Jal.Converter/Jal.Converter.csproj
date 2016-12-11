@@ -45,13 +45,13 @@
   <ItemGroup>
     <Compile Include="Extension\ConverterExtension.cs" />
     <Compile Include="Impl\NullModelConverterInterceptor.cs" />
-    <Compile Include="Fluent\Interface\IModelConverterStartFluentBuilder.cs" />
-    <Compile Include="Fluent\Interface\IModelConverterEndFluentBuilder.cs" />
-    <Compile Include="Fluent\Interface\IModelConverterFluentBuilder.cs" />
+    <Compile Include="Fluent\Interface\IModelConverterLocatorBuilder.cs" />
+    <Compile Include="Fluent\Interface\IModelConverterCreateBuilder.cs" />
+    <Compile Include="Fluent\Interface\IModelConverterInterceptorBuilder.cs" />
     <Compile Include="Impl\AbstractConverter.cs" />
     <Compile Include="Impl\ConverterFactory.cs" />
     <Compile Include="Impl\ModelConverter.cs" />
-    <Compile Include="Fluent\Impl\ModelConverterFluentBuilder.cs" />
+    <Compile Include="Fluent\Impl\ModelConverterBuilder.cs" />
     <Compile Include="Impl\AbstractConverterInterceptor.cs" />
     <Compile Include="Interface\IConverter.cs" />
     <Compile Include="Interface\IConverterFactory.cs" />

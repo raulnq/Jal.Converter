@@ -7,13 +7,13 @@ namespace Jal.Converter.Impl
 {
     public class ModelConverter : IModelConverter
     {
-        public IConverterFactory Factory { get; set; }
+        public IConverterFactory Factory { get; }
 
         public IModelConverterInterceptor Interceptor { get; set; }
 
         public static IModelConverter Current;
 
-        public static IModelConverterStartFluentBuilder Builder => new ModelConverterFluentBuilder();
+        public static IModelConverterLocatorBuilder Builder => new ModelConverterBuilder();
 
         public ModelConverter(IConverterFactory converterFactory)
         {
@@ -22,14 +22,14 @@ namespace Jal.Converter.Impl
             Interceptor = AbstractConverterInterceptor.Instance;
         }
 
-        TDestination Try<TSource, TDestination>(TSource source, TDestination destination, Func<IConverter<TSource, TDestination>, TDestination> convertion)
+        TDestination Try<TSource, TDestination>(TSource source, TDestination destination, Func<IConverter<TSource, TDestination>, TDestination> converterfunc)
         {
             Interceptor.OnEnter(source, destination);
             try
             {
                 var converter = Factory.Create<TSource, TDestination>();
 
-                var result = convertion(converter);
+                var result = converterfunc(converter);
 
                 Interceptor.OnSuccess(source, result);
 

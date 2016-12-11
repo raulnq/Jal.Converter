@@ -6,13 +6,13 @@ using Jal.Locator.Interface;
 
 namespace Jal.Converter.Fluent.Impl
 {
-    public class ModelConverterFluentBuilder : IModelConverterFluentBuilder, IModelConverterStartFluentBuilder
+    public class ModelConverterBuilder : IModelConverterInterceptorBuilder, IModelConverterLocatorBuilder
     {
         public IConverterFactory ConverterFactory;
 
         public IModelConverterInterceptor ModelConverterInterceptor;
 
-        public IModelConverterFluentBuilder UseLocator(IServiceLocator serviceLocator)
+        public IModelConverterInterceptorBuilder UseLocator(IServiceLocator serviceLocator)
         {
             if (serviceLocator == null)
             {
@@ -24,7 +24,7 @@ namespace Jal.Converter.Fluent.Impl
             return this;
         }
 
-        public IModelConverterEndFluentBuilder UseInterceptor(IModelConverterInterceptor modelConverterInterceptor)
+        public IModelConverterCreateBuilder UseInterceptor(IModelConverterInterceptor modelConverterInterceptor)
         {
             if (modelConverterInterceptor == null)
             {

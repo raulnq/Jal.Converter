@@ -2,7 +2,7 @@
 
 namespace Jal.Converter.Fluent.Interface
 {
-    public interface IModelConverterEndFluentBuilder
+    public interface IModelConverterCreateBuilder
     {
         IModelConverter Create { get; }
     }
