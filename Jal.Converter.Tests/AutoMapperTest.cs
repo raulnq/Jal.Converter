@@ -41,6 +41,8 @@ namespace Jal.Converter.Tests
 
             servicelocator.Register(typeof(IConverter<IDataReader, IEnumerable<Customer>>), new AutoMapperConverter<IDataReader, IEnumerable<Customer>>());
 
+            servicelocator.Register(typeof(IConverter<IDataReader, ICollection<Customer>>), new AutoMapperConverter<IDataReader, ICollection<Customer>>());
+
             _modelConverter = ModelConverter.Builder.UseLocator(servicelocator).Create;
         }
 
@@ -252,6 +254,34 @@ namespace Jal.Converter.Tests
             customer.Name.ShouldBe("Name");
 
             customer.Category.ShouldBe("Category");
+        }
+
+        [Test]
+        public void Convert_WithDataTableToCollection_ShouldBe()
+        {
+            var dt = new DataTable();
+
+            dt.Clear();
+
+            dt.Columns.Add(new DataColumn("Age", typeof(int)));
+
+            dt.Columns.Add("Name");
+
+            dt.Columns.Add("Category");
+
+            var row = dt.NewRow();
+
+            row["Name"] = "Name";
+
+            row["Category"] = "Category";
+
+            row["Age"] = 15;
+
+            dt.Rows.Add(row);
+
+            var customers = _modelConverter.Convert<IDataReader, ICollection<Customer>>(dt.CreateDataReader());
+
+            customers.ShouldBe(null);
         }
     }
 }

@@ -44,19 +44,16 @@ namespace Jal.Converter.AutoMapper
                         if (genericType == typeof(IEnumerable<>))
                         {
                             return (TDestination)enumerable;
-                        }
-                        else
-                        {
-                            return default(TDestination);
-                        }
-                        
+                        }                      
                     }
-
                 }
                 else
                 {
-                    var results = Mapper.Map<IDataReader, IEnumerable<TDestination>>(data);
-                    return results.FirstOrDefault();
+                    if (!typeof (TDestination).IsGenericType)
+                    {
+                        var results = Mapper.Map<IDataReader, IEnumerable<TDestination>>(data);
+                        return results.FirstOrDefault();
+                    }
                 }
             }
             else
@@ -64,6 +61,8 @@ namespace Jal.Converter.AutoMapper
                 var results = Mapper.Map<TSource, TDestination>(source);
                 return results;
             }
+
+            return default(TDestination);
         }
 
         public TDestination Convert(TSource source, TDestination destination)

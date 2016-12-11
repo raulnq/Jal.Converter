@@ -1,4 +1,4 @@
-# Jal.Converter
+# Jal.Converter [![Build status](https://ci.appveyor.com/api/projects/status/c63jmwrdr2iussdm?svg=true)](https://ci.appveyor.com/project/raulnq/jal-converter) [![NuGet](https://img.shields.io/nuget/v/Jal.Factory.svg)](https://www.nuget.org/packages/Jal.Converter) [![Coverage Status](https://coveralls.io/repos/github/raulnq/Jal.Converter/badge.svg?branch=master)](https://coveralls.io/github/raulnq/Jal.Converter?branch=master)
 Just another library to convert classes
 
 ## How to use?
@@ -43,7 +43,7 @@ var customerRequest = new CustomerRequest
 };
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);  
 ```
-### Castle Windsor Integration
+### Castle Windsor Integration [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.Installer)
 
 Note: The [Jal.Locator.CastleWindsor](https://www.nuget.org/packages/Jal.Locator.CastleWindsor/) and [Jal.Finder library](https://www.nuget.org/packages/Jal.Finder/) are needed.
 
@@ -99,7 +99,7 @@ var customerRequest = new CustomerRequest
 };
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 ```
-### LightInject Integration
+### LightInject Integration [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.LightInject.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.LightInject.Installer)
 
 Note: The [Jal.Locator.LightInject](https://www.nuget.org/packages/Jal.Locator.LightInject/) and [Jal.Finder](https://www.nuget.org/packages/Jal.Finder/) library are needed. 
 
@@ -155,7 +155,7 @@ var customerRequest = new CustomerRequest
 };
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 ```
-## AutoMapper Integration
+## AutoMapper Integration [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.AutoMapper.svg)](https://www.nuget.org/packages/Jal.Converter.AutoMapper)
 
 Note: [The Jal.Converter.AutoMapper](https://www.nuget.org/packages/Jal.Converter.AutoMapper/) library is needed.
 
