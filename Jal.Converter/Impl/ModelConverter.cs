@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Jal.Converter.Fluent.Impl;
 using Jal.Converter.Fluent.Interface;
 using Jal.Converter.Interface;
@@ -50,6 +51,15 @@ namespace Jal.Converter.Impl
         public TDestination Convert<TSource, TDestination>(TSource source)
         {
             return Try(source, default(TDestination), converter => converter.Convert(source));
+        }
+
+        public object Convert(Type sourcetype, Type destinationtype, object source)
+        {
+            var method = typeof(ModelConverter).GetMethods().First(x => x.Name == nameof(ModelConverter.Convert) && x.GetParameters().Count() == 1);
+
+            var genericmethod = method?.MakeGenericMethod(sourcetype, destinationtype);
+
+            return genericmethod?.Invoke(this, new[] { source });
         }
 
         public TDestination Convert<TSource, TDestination>(TSource source, dynamic context)

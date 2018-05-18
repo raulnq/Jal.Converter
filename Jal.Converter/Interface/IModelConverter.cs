@@ -1,7 +1,10 @@
-﻿namespace Jal.Converter.Interface
+﻿using System;
+
+namespace Jal.Converter.Interface
 {
     public interface IModelConverter
     {
+        object Convert(Type sourcetype, Type destinationtype, object source);
         TDestination Convert<TSource, TDestination>(TSource source);
 
         TDestination Convert<TSource, TDestination>(TSource source, dynamic context);
