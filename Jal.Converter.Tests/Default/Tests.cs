@@ -16,7 +16,7 @@ namespace Jal.Converter.Tests.Default
         [SetUp]
         public void SetUp()
         {
-            var serviceLocator = ServiceLocator.Builder.Create as ServiceLocator;
+            var serviceLocator = new ServiceLocator();
 
             serviceLocator.Register(typeof(IConverter<CustomerRequest, Customer>), new CustomerRequestCustomerConverter());
 

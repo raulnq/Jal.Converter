@@ -29,7 +29,7 @@ namespace Jal.Converter.Tests
                 a.CreateMap<IDataReader, Customer>();
             });
 
-            var servicelocator = ServiceLocator.Builder.Create as ServiceLocator;
+            var servicelocator = new ServiceLocator();
 
             servicelocator.Register(typeof(IConverter<CustomerRequest, Customer>), new AutoMapperConverter<CustomerRequest, Customer>());
 
