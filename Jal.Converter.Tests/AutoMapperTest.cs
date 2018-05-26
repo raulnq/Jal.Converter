@@ -19,7 +19,7 @@ namespace Jal.Converter.Tests
     {
         private IModelConverter _modelConverter;
 
-        [SetUp]
+        [TestFixtureSetUp]
         public void SetUp()
         {
             Mapper.Initialize(a =>
