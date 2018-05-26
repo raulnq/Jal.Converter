@@ -24,7 +24,6 @@ namespace Jal.Converter.Tests
         {
             Mapper.Initialize(a =>
             {
-                MapperRegistry.Mappers.Add(new DataReaderMapper { YieldReturnEnabled = true });
                 a.CreateMap<CustomerRequest, Customer>();
                 a.CreateMap<IDataReader, Customer>();
             });
@@ -123,165 +122,165 @@ namespace Jal.Converter.Tests
 
         }
 
-        [Test]
-        public void Convert_WithDataTableToOneObject_ShouldBe()
-        {
+        //[Test]
+        //public void Convert_WithDataTableToOneObject_ShouldBe()
+        //{
 
 
-            var dt = new DataTable();
+        //    var dt = new DataTable();
 
-            dt.Clear();
+        //    dt.Clear();
 
-            dt.Columns.Add(new DataColumn("Age", typeof(int)));
+        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
 
-            dt.Columns.Add("Name");
+        //    dt.Columns.Add("Name");
 
-            dt.Columns.Add("Category");
+        //    dt.Columns.Add("Category");
 
-            var row = dt.NewRow();
+        //    var row = dt.NewRow();
 
-            row["Name"] = "Name";
+        //    row["Name"] = "Name";
 
-            row["Category"] = "Category";
+        //    row["Category"] = "Category";
 
-            row["Age"] = 15;
+        //    row["Age"] = 15;
 
-            dt.Rows.Add(row);
+        //    dt.Rows.Add(row);
 
-            var customer = _modelConverter.Convert<IDataReader, Customer>(dt.CreateDataReader());
+        //    var customer = _modelConverter.Convert<IDataReader, Customer>(dt.CreateDataReader());
 
-            customer.Age.ShouldBe(15);
+        //    customer.Age.ShouldBe(15);
 
-            customer.Name.ShouldBe("Name");
+        //    customer.Name.ShouldBe("Name");
 
-            customer.Category.ShouldBe("Category");
-        }
+        //    customer.Category.ShouldBe("Category");
+        //}
 
-        [Test]
-        public void Convert_WithDataTableToIList_ShouldBe()
-        {
-            var dt = new DataTable();
+        //[Test]
+        //public void Convert_WithDataTableToIList_ShouldBe()
+        //{
+        //    var dt = new DataTable();
 
-            dt.Clear();
+        //    dt.Clear();
 
-            dt.Columns.Add(new DataColumn("Age", typeof(int)));
+        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
 
-            dt.Columns.Add("Name");
+        //    dt.Columns.Add("Name");
 
-            dt.Columns.Add("Category");
+        //    dt.Columns.Add("Category");
 
-            var row = dt.NewRow();
+        //    var row = dt.NewRow();
 
-            row["Name"] = "Name";
+        //    row["Name"] = "Name";
 
-            row["Category"] = "Category";
+        //    row["Category"] = "Category";
 
-            row["Age"] = 15;
+        //    row["Age"] = 15;
 
-            dt.Rows.Add(row);
+        //    dt.Rows.Add(row);
 
-            var customers = _modelConverter.Convert<IDataReader, IList<Customer>>(dt.CreateDataReader());
+        //    var customers = _modelConverter.Convert<IDataReader, IList<Customer>>(dt.CreateDataReader());
 
-            customers[0].Age.ShouldBe(15);
+        //    customers[0].Age.ShouldBe(15);
 
-            customers[0].Name.ShouldBe("Name");
+        //    customers[0].Name.ShouldBe("Name");
 
-            customers[0].Category.ShouldBe("Category");
+        //    customers[0].Category.ShouldBe("Category");
             
-        }
+        //}
 
-        [Test]
-        public void Convert_WithDataTableToList_ShouldBe()
-        {
-            var dt = new DataTable();
+        //[Test]
+        //public void Convert_WithDataTableToList_ShouldBe()
+        //{
+        //    var dt = new DataTable();
 
-            dt.Clear();
+        //    dt.Clear();
 
-            dt.Columns.Add(new DataColumn("Age", typeof(int)));
+        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
 
-            dt.Columns.Add("Name");
+        //    dt.Columns.Add("Name");
 
-            dt.Columns.Add("Category");
+        //    dt.Columns.Add("Category");
 
-            var row = dt.NewRow();
+        //    var row = dt.NewRow();
 
-            row["Name"] = "Name";
+        //    row["Name"] = "Name";
 
-            row["Category"] = "Category";
+        //    row["Category"] = "Category";
 
-            row["Age"] = 15;
+        //    row["Age"] = 15;
 
-            dt.Rows.Add(row);
+        //    dt.Rows.Add(row);
 
-            var customers = _modelConverter.Convert<IDataReader, List<Customer>>(dt.CreateDataReader());
+        //    var customers = _modelConverter.Convert<IDataReader, List<Customer>>(dt.CreateDataReader());
 
-            customers[0].Age.ShouldBe(15);
+        //    customers[0].Age.ShouldBe(15);
 
-            customers[0].Name.ShouldBe("Name");
+        //    customers[0].Name.ShouldBe("Name");
 
-            customers[0].Category.ShouldBe("Category");
-        }
+        //    customers[0].Category.ShouldBe("Category");
+        //}
 
-        [Test]
-        public void Convert_WithDataTableToEnumarate_ShouldBe()
-        {
-            var dt = new DataTable();
+        //[Test]
+        //public void Convert_WithDataTableToEnumarate_ShouldBe()
+        //{
+        //    var dt = new DataTable();
 
-            dt.Clear();
+        //    dt.Clear();
 
-            dt.Columns.Add(new DataColumn("Age", typeof(int)));
+        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
 
-            dt.Columns.Add("Name");
+        //    dt.Columns.Add("Name");
 
-            dt.Columns.Add("Category");
+        //    dt.Columns.Add("Category");
 
-            var row = dt.NewRow();
+        //    var row = dt.NewRow();
 
-            row["Name"] = "Name";
+        //    row["Name"] = "Name";
 
-            row["Category"] = "Category";
+        //    row["Category"] = "Category";
 
-            row["Age"] = 15;
+        //    row["Age"] = 15;
 
-            dt.Rows.Add(row);
+        //    dt.Rows.Add(row);
 
-            var customers = _modelConverter.Convert<IDataReader, IEnumerable<Customer>>(dt.CreateDataReader());
+        //    var customers = _modelConverter.Convert<IDataReader, IEnumerable<Customer>>(dt.CreateDataReader());
 
-            var customer = customers.FirstOrDefault();
+        //    var customer = customers.FirstOrDefault();
 
-            customer.Age.ShouldBe(15);
+        //    customer.Age.ShouldBe(15);
 
-            customer.Name.ShouldBe("Name");
+        //    customer.Name.ShouldBe("Name");
 
-            customer.Category.ShouldBe("Category");
-        }
+        //    customer.Category.ShouldBe("Category");
+        //}
 
-        [Test]
-        public void Convert_WithDataTableToCollection_ShouldBe()
-        {
-            var dt = new DataTable();
+        //[Test]
+        //public void Convert_WithDataTableToCollection_ShouldBe()
+        //{
+        //    var dt = new DataTable();
 
-            dt.Clear();
+        //    dt.Clear();
 
-            dt.Columns.Add(new DataColumn("Age", typeof(int)));
+        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
 
-            dt.Columns.Add("Name");
+        //    dt.Columns.Add("Name");
 
-            dt.Columns.Add("Category");
+        //    dt.Columns.Add("Category");
 
-            var row = dt.NewRow();
+        //    var row = dt.NewRow();
 
-            row["Name"] = "Name";
+        //    row["Name"] = "Name";
 
-            row["Category"] = "Category";
+        //    row["Category"] = "Category";
 
-            row["Age"] = 15;
+        //    row["Age"] = 15;
 
-            dt.Rows.Add(row);
+        //    dt.Rows.Add(row);
 
-            var customers = _modelConverter.Convert<IDataReader, ICollection<Customer>>(dt.CreateDataReader());
+        //    var customers = _modelConverter.Convert<IDataReader, ICollection<Customer>>(dt.CreateDataReader());
 
-            customers.ShouldBe(null);
-        }
+        //    customers.ShouldBe(null);
+        //}
     }
 }
