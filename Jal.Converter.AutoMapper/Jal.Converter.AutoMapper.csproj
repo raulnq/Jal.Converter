@@ -5,7 +5,7 @@
     <Authors>Raul Naupari</Authors>
     <Version>1.2.0</Version>
     <Company>Raul Naupari</Company>
-    <Description>Integration between AutoMapper and Jal.Conveter library"</Description>
+    <Description>Integration between AutoMapper and Jal.Conveter library</Description>
     <Copyright />
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/raulnq/Jal.Converter</PackageProjectUrl>
