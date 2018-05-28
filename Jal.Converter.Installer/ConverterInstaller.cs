@@ -10,18 +10,18 @@ namespace Jal.Converter.Installer
 {
     public class ConverterInstaller : IWindsorInstaller
     {
-        private readonly Assembly[] _converterSourceAssemblies;
+        private readonly Assembly[] _assemblies;
 
-        public ConverterInstaller(Assembly[] converterSourceAssemblies)
+        public ConverterInstaller(Assembly[] assemblies = null)
         {
-            _converterSourceAssemblies = converterSourceAssemblies;
+            _assemblies = assemblies;
         }
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            if (_converterSourceAssemblies != null)
+            if (_assemblies != null)
             {
-                foreach (var assemblyDescriptor in _converterSourceAssemblies.Select(Classes.FromAssembly))
+                foreach (var assemblyDescriptor in _assemblies.Select(Classes.FromAssembly))
                 {
                     container.Register(assemblyDescriptor.BasedOn(typeof(IConverter<,>)).WithServiceAllInterfaces());
                 }

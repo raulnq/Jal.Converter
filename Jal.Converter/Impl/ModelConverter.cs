@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Jal.Converter.Fluent.Impl;
-using Jal.Converter.Fluent.Interface;
 using Jal.Converter.Interface;
+using Jal.Locator.Interface;
 
 namespace Jal.Converter.Impl
 {
@@ -14,7 +13,10 @@ namespace Jal.Converter.Impl
 
         public static IModelConverter Current;
 
-        public static IModelConverterLocatorBuilder Builder => new ModelConverterBuilder();
+        public static IModelConverter Create(IServiceLocator locator)
+        {
+            return new ModelConverter(new ConverterFactory(locator));
+        }
 
         public ModelConverter(IConverterFactory converterFactory)
         {
@@ -60,6 +62,15 @@ namespace Jal.Converter.Impl
             var genericmethod = method?.MakeGenericMethod(sourcetype, destinationtype);
 
             return genericmethod?.Invoke(this, new[] { source });
+        }
+
+        public object Convert(Type sourcetype, Type destinationtype, object source, object destination)
+        {
+            var method = typeof(ModelConverter).GetMethods().First(x => x.Name == nameof(ModelConverter.Convert) && x.GetParameters().Count() == 2);
+
+            var genericmethod = method?.MakeGenericMethod(sourcetype, destinationtype);
+
+            return genericmethod?.Invoke(this, new[] { source, destination });
         }
 
         public TDestination Convert<TSource, TDestination>(TSource source, dynamic context)

@@ -1,18 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Converter", "Jal.Converter\Jal.Converter.csproj", "{5994422B-1CA2-49D2-8754-DF8D52627328}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jal.Converter", "Jal.Converter\Jal.Converter.csproj", "{5994422B-1CA2-49D2-8754-DF8D52627328}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Converter.AutoMapper", "Jal.Converter.AutoMapper\Jal.Converter.AutoMapper.csproj", "{A458D129-63D7-492B-98E8-48EE34ADB0AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jal.Converter.AutoMapper", "Jal.Converter.AutoMapper\Jal.Converter.AutoMapper.csproj", "{A458D129-63D7-492B-98E8-48EE34ADB0AB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{214877A7-DCDA-4327-9104-A301AFFAC633}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Converter.Installer", "Jal.Converter.Installer\Jal.Converter.Installer.csproj", "{97056417-CA87-4290-BDB4-7C7DE3B33CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jal.Converter.Installer", "Jal.Converter.Installer\Jal.Converter.Installer.csproj", "{97056417-CA87-4290-BDB4-7C7DE3B33CBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Converter.Tests", "Jal.Converter.Tests\Jal.Converter.Tests.csproj", "{FF288979-2745-4D99-BA6D-C9D979AF8326}"
 EndProject
@@ -21,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Converter.LightInject.Installer", "Jal.Converter.LightInject.Installer\Jal.Converter.LightInject.Installer.csproj", "{7FEEE8AD-2C95-4FDA-A5CF-09F1625F2697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jal.Converter.LightInject.Installer", "Jal.Converter.LightInject.Installer\Jal.Converter.LightInject.Installer.csproj", "{7FEEE8AD-2C95-4FDA-A5CF-09F1625F2697}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,5 +47,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE562DE6-A69E-4496-ADA1-DC4B162ECF9D}
 	EndGlobalSection
 EndGlobal

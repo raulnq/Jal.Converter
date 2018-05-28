@@ -3,13 +3,11 @@ Just another library to convert classes
 
 ## How to use?
 
-### Default implementation
-
-I only suggest to use this implementation on simple apps.
+### Default service locator implementation
 
 Create an instance of the locator
 ```c++
-var locator = ServiceLocator.Builder.Create as ServiceLocator;
+var locator = new ServiceLocator();
 ```   
 Create your converter class
 ```c++
@@ -32,7 +30,7 @@ serviceLocator.Register(typeof(IConverter<CustomerRequest, Customer>), new Custo
 ```
 Create a instance of the IModelConverter interface
 ```c++
-modelConverter = ModelConverter.Builder.UseLocator(serviceLocator).Create;
+modelConverter = ModelConverter.Create(servicelocator);
 ```    
 Use the IModelConverter interface
 ```c++
@@ -41,21 +39,14 @@ var customerRequest = new CustomerRequest
 	Name = name,
 	Age = age
 };
+
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);  
 ```
-### Castle Windsor Integration [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.Installer)
+### Castle Windsor as service locator implementation [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.Installer)
 
-Note: The [Jal.Locator.CastleWindsor](https://www.nuget.org/packages/Jal.Locator.CastleWindsor/) and [Jal.Finder library](https://www.nuget.org/packages/Jal.Finder/) are needed.
+Note: The [Jal.Locator.CastleWindsor](https://www.nuget.org/packages/Jal.Locator.CastleWindsor/) library is needed.
 
-Setup the Jal.Finder library
-```c++
-var directory = AppDomain.CurrentDomain.BaseDirectory;
-
-var finder = AssemblyFinder.Builder.UsePath(directory).Create;
-	
-var assemblies = finder.GetAssembliesTagged<AssemblyTagAttribute>();
-```
-Setup the Castle Windsor container
+Setup the IoC container
 ```c++
 var container = new WindsorContainer();
 ```
@@ -63,9 +54,9 @@ Install the Jal.Locator.CastleWindsor library
 ```c++
 container.Install(new ServiceLocatorInstaller());
 ```
-Install the Jal.Converter library, use the ConverterInstaller class included
+Install the Jal.Converter library
 ```c++
-container.Install(new ConverterInstaller(assemblies));
+container.Install(new ConverterInstaller());
 ```
 Create your converter class
 ```c++
@@ -82,35 +73,26 @@ public class CustomerRequestCustomerConverter : AbstractConverter<CustomerReques
 	}
 }
 ```	
-Tag the assembly container of the converter classes in order to be read by the library
+Register your converter class in the IoC container
 ```c++
-[assembly: AssemblyTag()]
+container.Register(Component.For<IConverter<CustomerRequest, Customer>>().ImplementedBy<CustomerRequestCustomerConverter>());
 ```
-Resolve a instance of the interface IModelConverter
+Resolve and use an instance of IModelConverter
 ```c++
 var modelConverter = container.Resolve<IModelConverter>();
-```
-Use the Converter class
-```c++
+
 var customerRequest = new CustomerRequest
 {
 	Name = name,
 	Age = age
 };
+
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 ```
-### LightInject Integration [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.LightInject.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.LightInject.Installer)
+### LightInject as service locator implementation [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.LightInject.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.LightInject.Installer)
 
-Note: The [Jal.Locator.LightInject](https://www.nuget.org/packages/Jal.Locator.LightInject/) and [Jal.Finder](https://www.nuget.org/packages/Jal.Finder/) library are needed. 
+Note: The [Jal.Locator.LightInject](https://www.nuget.org/packages/Jal.Locator.LightInject/) library is needed. 
 
-Setup the Jal.Finder library
-```c++
-var directory = AppDomain.CurrentDomain.BaseDirectory;
-
-var finder = AssemblyFinder.Builder.UsePath(directory).Create;
-	
-var assemblies = finder.GetAssembliesTagged<AssemblyTagAttribute>();
-```
 Setup the LightInject container
 ```c++
 var container = new ServiceContainer();
@@ -121,7 +103,7 @@ container.RegisterFrom<ServiceLocatorCompositionRoot>();
 ```
 Install the Jal.Converter library
 ```c++
-container.RegisterConverter(assemblies);
+container.RegisterConverter();
 ```
 Create your converter class
 ```c++
@@ -138,24 +120,23 @@ public class CustomerRequestCustomerConverter : AbstractConverter<CustomerReques
 	}
 }
 ```	
-Tag the assembly container of the converter classes in order to be read by the library
+Register your converter class in the IoC container
 ```c++
-[assembly: AssemblyTag()]
+container.Register<IConverter<CustomerRequest, Customer>, CustomerRequestCustomerConverter>();
 ```
-Resolve a instance of the interface IModelConverter
+Resolve and use an instance of IModelConverter
 ```c++
 var modelConverter = container.GetInstance<IModelConverter>();
-```
-Use the Converter class
-```c++
+
 var customerRequest = new CustomerRequest
 {
 	Name = name,
 	Age = age
 };
+
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 ```
-## AutoMapper Integration [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.AutoMapper.svg)](https://www.nuget.org/packages/Jal.Converter.AutoMapper)
+## AutoMapper as converter implementation [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.AutoMapper.svg)](https://www.nuget.org/packages/Jal.Converter.AutoMapper)
 
 Note: [The Jal.Converter.AutoMapper](https://www.nuget.org/packages/Jal.Converter.AutoMapper/) library is needed.
 

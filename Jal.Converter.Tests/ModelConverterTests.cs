@@ -13,6 +13,23 @@ namespace Jal.Converter.Tests
     public class ModelConverterTests
     {
         [Test]
+        public void Convert_WithObjectParameter_ShouldNotBeNull()
+        {
+            var factory = new Mock<IConverterFactory>();
+
+            factory.Setup(x => x.Create<CustomerRequest, Customer>()).Returns(new CustomerRequestCustomerConverter());
+
+            var sut = new ModelConverter(factory.Object);
+
+            var customer = sut.Convert(typeof(CustomerRequest),typeof(Customer), new CustomerRequest());
+
+            customer.ShouldNotBeNull();
+
+            customer.ShouldBeOfType<Customer>();
+        }
+
+
+        [Test]
         public void Convert_With_ShouldNotBeNull()
         {
             var factory = new Mock<IConverterFactory>();
@@ -61,6 +78,22 @@ namespace Jal.Converter.Tests
         }
 
         [Test]
+        public void Convert_WithDestinationObjectParameter_ShouldNotBeNull()
+        {
+            var factory = new Mock<IConverterFactory>();
+
+            factory.Setup(x => x.Create<CustomerRequest, Customer>()).Returns(new CustomerRequestCustomerConverter());
+
+            var sut = new ModelConverter(factory.Object);
+
+            var customer = sut.Convert(typeof(CustomerRequest), typeof(Customer), new CustomerRequest(), new Customer());
+
+            customer.ShouldNotBeNull();
+
+            customer.ShouldBeOfType<Customer>();
+        }
+
+        [Test]
         public void Convert_WithDestinationAndDynamic_ShouldNotBeNull()
         {
             var factory = new Mock<IConverterFactory>();
@@ -94,7 +127,7 @@ namespace Jal.Converter.Tests
         {
             var locator = new Mock<IServiceLocator>();
 
-            var instance = ModelConverter.Builder.UseLocator(locator.Object).Create;
+            var instance = ModelConverter.Create(locator.Object);
 
             instance.ShouldNotBeNull();
 

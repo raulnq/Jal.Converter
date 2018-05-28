@@ -1,11 +1,8 @@
 ﻿using System;
 using Castle.Windsor;
-using Jal.Converter.Extension;
 using Jal.Converter.Impl;
 using Jal.Converter.Installer;
 using Jal.Converter.Interface;
-using Jal.Converter.Tests.Impl;
-using Jal.Converter.Tests.Model;
 using Jal.Finder.Impl;
 using Jal.Locator.CastleWindsor.Installer;
 using NUnit.Framework;

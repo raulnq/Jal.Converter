@@ -1,6 +1,7 @@
 ﻿using System;
 using Jal.Converter.Interface;
 using Jal.Converter.LightInject.Installer;
+using Jal.Converter.Tests.Impl;
 using Jal.Converter.Tests.Model;
 using Jal.Finder.Impl;
 using Jal.Locator.LightInject.Installer;
@@ -13,10 +14,11 @@ namespace Jal.Converter.Tests.LightInject
     [TestFixture]
     public class Tests
     {
-        private IModelConverter _modelConverter;
-
-        [SetUp]
-        public void SetUp()
+        [Test]
+        [TestCase("Name", 19)]
+        [TestCase("A", 10000)]
+        [TestCase("_", 999)]
+        public void Convert_WithCustomerRequestToCustomerA_ShouldBe(string name, int age)
         {
             var directory = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -30,21 +32,44 @@ namespace Jal.Converter.Tests.LightInject
 
             container.RegisterConverter(assemblies);
 
-            _modelConverter = container.GetInstance<IModelConverter>();
+            var sut = container.GetInstance<IModelConverter>();
+
+            var customerRequest = new CustomerRequest
+            {
+                Name = name,
+                Age = age
+            };
+            var customer = sut.Convert<CustomerRequest, Customer>(customerRequest);
+
+            customer.Name.ShouldBe(customerRequest.Name);
+
+            customer.Age.ShouldBe(customerRequest.Age);
+
+            customer.Category.ShouldBe("None");
         }
 
         [Test]
         [TestCase("Name", 19)]
         [TestCase("A", 10000)]
         [TestCase("_", 999)]
-        public void Convert_WithCustomerRequestToCustomer_ShouldBe(string name, int age)
+        public void Convert_WithCustomerRequestToCustomerB_ShouldBe(string name, int age)
         {
+            var container = new ServiceContainer();
+
+            container.RegisterFrom<ServiceLocatorCompositionRoot>();
+
+            container.Register<IConverter<CustomerRequest, Customer>, CustomerRequestCustomerConverter>();
+
+            container.RegisterConverter();
+
+            var sut = container.GetInstance<IModelConverter>();
+
             var customerRequest = new CustomerRequest
             {
                 Name = name,
                 Age = age
             };
-            var customer = _modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
+            var customer = sut.Convert<CustomerRequest, Customer>(customerRequest);
 
             customer.Name.ShouldBe(customerRequest.Name);
 

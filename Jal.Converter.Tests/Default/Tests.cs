@@ -11,31 +11,25 @@ namespace Jal.Converter.Tests.Default
     [TestFixture]
     public class Tests
     {
-        private IModelConverter _modelConverter;
-
-        [SetUp]
-        public void SetUp()
-        {
-            var serviceLocator = new ServiceLocator();
-
-            serviceLocator.Register(typeof(IConverter<CustomerRequest, Customer>), new CustomerRequestCustomerConverter());
-
-            _modelConverter = ModelConverter.Builder.UseLocator(serviceLocator).Create;
-        }
-
         [Test]
         [TestCase("Name", 19)]
         [TestCase("A", 10000)]
         [TestCase("_", 999)]
         public void Convert_WithCustomerRequestToCustomer_ShouldBe(string name, int age)
         {
+            var locator = new ServiceLocator();
+
+            locator.Register(typeof(IConverter<CustomerRequest, Customer>), new CustomerRequestCustomerConverter());
+
+            var sut = ModelConverter.Create(locator);
+
             var customerRequest = new CustomerRequest
             {
                 Name = name,
                 Age = age
             };
 
-            var customer = _modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
+            var customer = sut.Convert<CustomerRequest, Customer>(customerRequest);
 
             customer.Name.ShouldBe(customerRequest.Name);
 

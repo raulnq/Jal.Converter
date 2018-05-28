@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using AutoMapper;
-using AutoMapper.Data;
-using AutoMapper.Mappers;
 using Jal.Converter.AutoMapper;
 using Jal.Converter.Impl;
 using Jal.Converter.Interface;
@@ -42,7 +39,7 @@ namespace Jal.Converter.Tests
 
             servicelocator.Register(typeof(IConverter<IDataReader, ICollection<Customer>>), new AutoMapperConverter<IDataReader, ICollection<Customer>>());
 
-            _modelConverter = ModelConverter.Builder.UseLocator(servicelocator).Create;
+            _modelConverter = ModelConverter.Create(servicelocator);
         }
 
         [Test]
@@ -121,166 +118,5 @@ namespace Jal.Converter.Tests
             customer.Name.ShouldBe(request.Name);
 
         }
-
-        //[Test]
-        //public void Convert_WithDataTableToOneObject_ShouldBe()
-        //{
-
-
-        //    var dt = new DataTable();
-
-        //    dt.Clear();
-
-        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
-
-        //    dt.Columns.Add("Name");
-
-        //    dt.Columns.Add("Category");
-
-        //    var row = dt.NewRow();
-
-        //    row["Name"] = "Name";
-
-        //    row["Category"] = "Category";
-
-        //    row["Age"] = 15;
-
-        //    dt.Rows.Add(row);
-
-        //    var customer = _modelConverter.Convert<IDataReader, Customer>(dt.CreateDataReader());
-
-        //    customer.Age.ShouldBe(15);
-
-        //    customer.Name.ShouldBe("Name");
-
-        //    customer.Category.ShouldBe("Category");
-        //}
-
-        //[Test]
-        //public void Convert_WithDataTableToIList_ShouldBe()
-        //{
-        //    var dt = new DataTable();
-
-        //    dt.Clear();
-
-        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
-
-        //    dt.Columns.Add("Name");
-
-        //    dt.Columns.Add("Category");
-
-        //    var row = dt.NewRow();
-
-        //    row["Name"] = "Name";
-
-        //    row["Category"] = "Category";
-
-        //    row["Age"] = 15;
-
-        //    dt.Rows.Add(row);
-
-        //    var customers = _modelConverter.Convert<IDataReader, IList<Customer>>(dt.CreateDataReader());
-
-        //    customers[0].Age.ShouldBe(15);
-
-        //    customers[0].Name.ShouldBe("Name");
-
-        //    customers[0].Category.ShouldBe("Category");
-            
-        //}
-
-        //[Test]
-        //public void Convert_WithDataTableToList_ShouldBe()
-        //{
-        //    var dt = new DataTable();
-
-        //    dt.Clear();
-
-        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
-
-        //    dt.Columns.Add("Name");
-
-        //    dt.Columns.Add("Category");
-
-        //    var row = dt.NewRow();
-
-        //    row["Name"] = "Name";
-
-        //    row["Category"] = "Category";
-
-        //    row["Age"] = 15;
-
-        //    dt.Rows.Add(row);
-
-        //    var customers = _modelConverter.Convert<IDataReader, List<Customer>>(dt.CreateDataReader());
-
-        //    customers[0].Age.ShouldBe(15);
-
-        //    customers[0].Name.ShouldBe("Name");
-
-        //    customers[0].Category.ShouldBe("Category");
-        //}
-
-        //[Test]
-        //public void Convert_WithDataTableToEnumarate_ShouldBe()
-        //{
-        //    var dt = new DataTable();
-
-        //    dt.Clear();
-
-        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
-
-        //    dt.Columns.Add("Name");
-
-        //    dt.Columns.Add("Category");
-
-        //    var row = dt.NewRow();
-
-        //    row["Name"] = "Name";
-
-        //    row["Category"] = "Category";
-
-        //    row["Age"] = 15;
-
-        //    dt.Rows.Add(row);
-
-        //    var customers = _modelConverter.Convert<IDataReader, IEnumerable<Customer>>(dt.CreateDataReader());
-
-        //    var customer = customers.FirstOrDefault();
-
-        //    customer.Age.ShouldBe(15);
-
-        //    customer.Name.ShouldBe("Name");
-
-        //    customer.Category.ShouldBe("Category");
-        //}
-
-        //[Test]
-        //public void Convert_WithDataTableToCollection_ShouldBe()
-        //{
-        //    var dt = new DataTable();
-
-        //    dt.Clear();
-
-        //    dt.Columns.Add(new DataColumn("Age", typeof(int)));
-
-        //    dt.Columns.Add("Name");
-
-        //    dt.Columns.Add("Category");
-
-        //    var row = dt.NewRow();
-
-        //    row["Name"] = "Name";
-
-        //    row["Category"] = "Category";
-
-        //    row["Age"] = 15;
-
-        //    dt.Rows.Add(row);
-
-        //    var customers = _modelConverter.Convert<IDataReader, ICollection<Customer>>(dt.CreateDataReader());
-
-        //    customers.ShouldBe(null);
-        //}
     }
 }

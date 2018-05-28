@@ -8,7 +8,7 @@ namespace Jal.Converter.LightInject.Installer
 {
     public static class ServiceContainerExtension
     {
-        public static void RegisterConverter(this IServiceContainer container, Assembly[] assemblies)
+        public static void RegisterConverter(this IServiceContainer container, Assembly[] assemblies=null)
         {
             container.Register<IConverterFactory, ConverterFactory>(new PerContainerLifetime());
 
