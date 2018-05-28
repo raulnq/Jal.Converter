@@ -1,4 +1,4 @@
-# Jal.Converter [![Build status](https://ci.appveyor.com/api/projects/status/c63jmwrdr2iussdm?svg=true)](https://ci.appveyor.com/project/raulnq/jal-converter) [![NuGet](https://img.shields.io/nuget/v/Jal.Factory.svg)](https://www.nuget.org/packages/Jal.Converter) [![Coverage Status](https://coveralls.io/repos/github/raulnq/Jal.Converter/badge.svg?branch=master)](https://coveralls.io/github/raulnq/Jal.Converter?branch=master)
+# Jal.Converter [![Build status](https://ci.appveyor.com/api/projects/status/c63jmwrdr2iussdm?svg=true)](https://ci.appveyor.com/project/raulnq/jal-converter) [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.svg)](https://www.nuget.org/packages/Jal.Converter) [![Coverage Status](https://coveralls.io/repos/github/raulnq/Jal.Converter/badge.svg?branch=master)](https://coveralls.io/github/raulnq/Jal.Converter?branch=master)
 Just another library to convert classes
 
 ## How to use?
