@@ -3,7 +3,7 @@ Just another library to convert classes
 
 ## How to use?
 
-### Default service locator implementation
+### Default service locator
 
 Create an instance of the locator
 ```c++
@@ -42,7 +42,7 @@ var customerRequest = new CustomerRequest
 
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);  
 ```
-### Castle Windsor as service locator implementation [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.Installer)
+### Castle Windsor as service locator [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.Installer)
 
 Note: The [Jal.Locator.CastleWindsor](https://www.nuget.org/packages/Jal.Locator.CastleWindsor/) library is needed.
 
@@ -89,7 +89,7 @@ var customerRequest = new CustomerRequest
 
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 ```
-### LightInject as service locator implementation [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.LightInject.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.LightInject.Installer)
+### LightInject as service locator [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.LightInject.Installer.svg)](https://www.nuget.org/packages/Jal.Converter.LightInject.Installer)
 
 Note: The [Jal.Locator.LightInject](https://www.nuget.org/packages/Jal.Locator.LightInject/) library is needed. 
 
@@ -136,7 +136,7 @@ var customerRequest = new CustomerRequest
 
 var customer = modelConverter.Convert<CustomerRequest, Customer>(customerRequest);
 ```
-## AutoMapper as converter implementation [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.AutoMapper.svg)](https://www.nuget.org/packages/Jal.Converter.AutoMapper)
+## AutoMapper as converter [![NuGet](https://img.shields.io/nuget/v/Jal.Converter.AutoMapper.svg)](https://www.nuget.org/packages/Jal.Converter.AutoMapper)
 
 Note: [The Jal.Converter.AutoMapper](https://www.nuget.org/packages/Jal.Converter.AutoMapper/) library is needed.
 
